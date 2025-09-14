@@ -9,6 +9,8 @@ public class Util {
     private static final String USER = "root";
     private static final String PASSWORD = "root1988";
 
+    private Util() {}
+
     public static Connection getConnection() {
         Connection connection;
         try {
