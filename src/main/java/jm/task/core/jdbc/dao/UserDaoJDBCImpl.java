@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
     }
-    Connection connection = Util.getConnection();
+    public static Connection connection = Util.getConnection();
 
     public void createUsersTable() {
         dropUsersTable();
@@ -25,6 +25,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 "                PRIMARY KEY (`id`));";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
