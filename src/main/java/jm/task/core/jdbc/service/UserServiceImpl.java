@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     public void saveUser(String name, String lastName, byte age) {
         userDao.saveUser(name, lastName, age);
+        displayUser(name);
     }
 
     public void removeUserById(long id) {
@@ -32,6 +33,10 @@ public class UserServiceImpl implements UserService {
 
     public void cleanUsersTable() {
         userDao.cleanUsersTable();
+    }
+
+    public void displayUser(String name) {
+        System.out.println("User с именем " + name + " добавлен в базу данных");
     }
 }
 

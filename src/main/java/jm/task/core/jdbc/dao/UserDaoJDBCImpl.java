@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
+    public static Connection connection = Util.getConnection();
+
     public UserDaoJDBCImpl() {
     }
-
-    public static Connection connection = Util.getConnection();
 
     @Override
     public void createUsersTable() {
@@ -55,7 +55,6 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
             connection.commit();
-            displayUser(name);
         } catch (SQLException e) {
             if (connection != null) {
                 try {
@@ -67,6 +66,7 @@ public class UserDaoJDBCImpl implements UserDao {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void removeUserById(long id) {
@@ -119,7 +119,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            if (connection != null) {
+            if (Util.getConnection() != null) {
                 try {
                     connection.rollback();
                 } catch (SQLException ex) {
@@ -128,10 +128,6 @@ public class UserDaoJDBCImpl implements UserDao {
             }
             throw new RuntimeException(e);
         }
-    }
-
-    public void displayUser(String name) {
-        System.out.println("User с именем " + name + " добавлен в базу данных");
     }
 }
 
